@@ -7,9 +7,9 @@ int main(){
     printf("%p\n", table);
     printf("%llu\n", table->capacity);
 
-    kv_put(table, "hehe", "haha");
-    kv_put(table, "hehe", "hoho");
-    kv_put(table, "lala", "hoho");
+    printf("%d\n", kv_put(table, "hehe", "haha"));
+    printf("%d\n", kv_put(table, "hehe", "hoho"));
+    printf("%d\n", kv_put(table, "lala", "hoho"));
 
     for(int i = 0; i < table->capacity; i++){
         if(table->entries[i].key){
