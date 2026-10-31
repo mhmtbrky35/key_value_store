@@ -174,7 +174,7 @@ int kv_delete(kv_t *db, char *key){
 //  returns : 0 on success, -1 on failure
 
 
-int kv_free(kv_t *db){
+void kv_free(kv_t *db){
     if(!db) return -1;
 
     for(int i = 0; i < db->capacity-1; i++){

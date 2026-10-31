@@ -33,8 +33,7 @@ int main(){
 
     printf("%s %s %s\n",val, val2, val3);
 
-    int is_free = kv_free(table);
-    printf("%d\n",is_free);
+    kv_free(table);
     table = NULL;
 
     val = kv_get(table,"hehe");
