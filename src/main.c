@@ -9,7 +9,7 @@ int main(){
 
     printf("%d\n", kv_put(table, "hehe", "haha"));
     printf("%d\n", kv_put(table, "hehe", "hoho"));
-    printf("%d\n", kv_put(table, "lala", "hoho"));
+    printf("%d\n", kv_put(table, "lala", "baba"));
 
     for(int i = 0; i < table->capacity; i++){
         if(table->entries[i].key){
@@ -19,6 +19,14 @@ int main(){
                 table->entries[i].value);
         }
     }
+
+    char *val = kv_get(table,"hehe");
+    char *val2 = kv_get(table,"lala");
+    char *val3 = kv_get(table,"this_doesnt_exist");
+
+    printf("%s %s %s\n",val, val2, val3);
+
+    kv_free(table);
 
     return 0;
 }
