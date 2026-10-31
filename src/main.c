@@ -26,7 +26,7 @@ int main(){
 
     printf("%s %s %s\n",val, val2, val3);
 
-    kv_free(table);
+    free(table);
 
     return 0;
 }

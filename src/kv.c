@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <kv.h>
 
-#define TOMBSTONE 0x1
+
 
 
 
