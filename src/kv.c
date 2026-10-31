@@ -44,8 +44,8 @@ int kv_put(kv_t *db, char *key, char *value){
 
         // the key is alredy set, updating
         if(entry->key &&
-            entry->key != (void*)TOMBSTONE &&
-            !strcmp(entry->key,key)){
+        entry->key != (void*)TOMBSTONE &&
+        !strcmp(entry->key,key)){
 
             char *newval = strdup(value);
             if(!newval) return -1;
@@ -54,7 +54,8 @@ int kv_put(kv_t *db, char *key, char *value){
         }
         //land in a slot that is "empty"
         //null or tombstone
-        if(!entry->key || entry->key == (void*)TOMBSTONE){
+        if(!entry->key || 
+        entry->key == (void*)TOMBSTONE){
             char *newval = strdup(value);
             char *newkey = strdup(key);
             if(!newval || !newkey) {
@@ -115,11 +116,52 @@ char *kv_get(kv_t *db, char *key){
 
         //find an entry and the keys match
         if(entry->key && 
-            entry->key != (void*)TOMBSTONE &&
-            !strcmp(entry->key,key)){
+        entry->key != (void*)TOMBSTONE &&
+        !strcmp(entry->key,key)){
             return entry->value;
         }
     }
 
     return NULL;
+}
+
+
+// fn kv_delete
+// params:
+// - db: a pointer to the db
+// -key: a pointer to the key value
+// -value: a pointer to the value itself
+// retunrs: index of the deletion
+// -1 if not found db or key
+
+int kv_delete(kv_t *db, char *key){
+    if(!db || !key) return -1;
+
+    size_t idx = hash(key, db->capacity);
+
+    for(int i = 0; i < db->capacity -1; i++){
+        size_t real_idx = (idx + i) % db->capacity;
+
+        kv_entry_t *entry = &db->entries[real_idx];
+
+        // is no key, therefore return nothing
+        if(entry->key == NULL){
+            return -1;
+        }
+
+        //find an entry and the keys match
+        if(entry->key && 
+        entry->key != TOMBSTONE &&
+        !strcmp(entry->key,key)) {
+
+            free(entry->key);
+            free(entry->value);
+            db->count--;
+            entry->key = TOMBSTONE;
+            entry->value = NULL;
+
+            return real_idx;
+        }
+    }
+    return -1;
 }

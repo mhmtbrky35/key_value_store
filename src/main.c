@@ -26,6 +26,13 @@ int main(){
 
     printf("%s %s %s\n",val, val2, val3);
 
+    printf("Deleted index: %d \n",kv_delete(table,"hehe"));
+
+    val = NULL;
+    val = kv_get(table,"hehe");
+
+    printf("%s %s %s\n",val, val2, val3);
+
     free(table);
 
     return 0;
